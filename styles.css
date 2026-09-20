@@ -21,6 +21,15 @@ body {
   height: 60px;
   border-bottom: black solid 1px;
 }
+.container .operation {
+  height: 30%;
+}
+.container .result {
+  display: flex;
+  align-items: center;
+  height: 70%;
+  font-size: 24px;
+}
 .container .btn-container {
   display: flex;
   gap: 2px;

@@ -31,16 +31,42 @@ function operate(a, b, op) {
 let firstNumber = "";
 let secondNumber = "";
 let operator = null;
+let equalPressed = false;
 const numberButtons = document.querySelectorAll(".number-btn");
 const operatorButtons = document.querySelectorAll(".operator-btn");
 const operation = document.querySelector(".operation");
+const equalBtn = document.querySelector(".equal-btn");
+const result = document.querySelector(".result");
+equalBtn.addEventListener("click", (e) => {
+  if (firstNumber !== "" && secondNumber !== "") {
+    let calculatedResult = operate(
+      Number(firstNumber),
+      Number(secondNumber),
+      operator,
+    );
+    result.textContent = calculatedResult;
+    operation.textContent =
+      firstNumber + operator + secondNumber + "=" + calculatedResult;
+    firstNumber = String(calculatedResult);
+    secondNumber = "";
+    operator = null;
+    equalPressed = true;
+  }
+});
 numberButtons.forEach((ele) =>
   ele.addEventListener("click", (e) => {
     if (operator === null) {
+      if (equalPressed) {
+        firstNumber = "";
+        operation.textContent = "";
+
+        equalPressed = false;
+      }
       firstNumber += e.target.textContent;
     } else {
       secondNumber += e.target.textContent;
     }
+
     operation.textContent += e.target.textContent;
   }),
 );
@@ -104,11 +130,12 @@ operatorButtons.forEach((ele) =>
       );
       console.log(firstNumber);
       operation.textContent = firstNumber + e.target.textContent;
+      result.textContent = firstNumber;
       secondNumber = "";
     } else {
       operation.textContent =
         operator === null
-          ? operation.textContent + e.target.textContent
+          ? firstNumber + e.target.textContent
           : operation.textContent.slice(0, -1) + e.target.textContent;
     }
     if (firstNumber === "") firstNumber = "0";
