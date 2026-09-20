@@ -37,6 +37,37 @@ const operatorButtons = document.querySelectorAll(".operator-btn");
 const operation = document.querySelector(".operation");
 const equalBtn = document.querySelector(".equal-btn");
 const result = document.querySelector(".result");
+const decimalBtn = document.querySelector(".decimal-btn");
+decimalBtn.addEventListener("click", (e) => {
+  if (operator === null) {
+    if (equalPressed) {
+      firstNumber = "";
+      operation.textContent = "";
+      equalPressed = false;
+    }
+    if (!firstNumber.includes(".")) {
+      if (firstNumber === "") {
+        firstNumber = "0";
+        firstNumber += e.target.textContent;
+        operation.textContent += firstNumber;
+      } else {
+        firstNumber += e.target.textContent;
+        operation.textContent += e.target.textContent;
+      }
+    }
+  } else {
+    if (!secondNumber.includes(".")) {
+      if (secondNumber === "") {
+        secondNumber = "0";
+        secondNumber += e.target.textContent;
+        operation.textContent += secondNumber;
+      } else {
+        secondNumber += e.target.textContent;
+        operation.textContent += e.target.textContent;
+      }
+    }
+  }
+});
 equalBtn.addEventListener("click", (e) => {
   if (firstNumber !== "" && secondNumber !== "") {
     let calculatedResult = operate(
@@ -128,7 +159,7 @@ operatorButtons.forEach((ele) =>
         Number(secondNumber),
         operator,
       );
-      console.log(firstNumber);
+
       operation.textContent = firstNumber + e.target.textContent;
       result.textContent = firstNumber;
       secondNumber = "";
