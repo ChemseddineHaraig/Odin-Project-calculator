@@ -28,6 +28,14 @@ function operate(a, b, op) {
       return multiply(a, b);
   }
 }
+function resetState() {
+  operation.textContent = "";
+  result.textContent = "";
+  firstNumber = "";
+  secondNumber = "";
+  operator = null;
+  equalPressed = false;
+}
 function toggleCalculator() {
   on = !on;
   decimalBtn.disabled = !on;
@@ -37,12 +45,7 @@ function toggleCalculator() {
   numberButtons.forEach((btn) => (btn.disabled = !on));
   operatorButtons.forEach((btn) => (btn.disabled = !on));
   screen.style.backgroundColor = on ? "white" : "gray";
-  operation.textContent = "";
-  result.textContent = "";
-  firstNumber = "";
-  secondNumber = "";
-  operator = null;
-  equalPressed = false;
+  resetState();
 }
 let firstNumber = "";
 let secondNumber = "";
@@ -60,32 +63,7 @@ const onOffBtn = document.querySelector(".on-off-btn");
 const clearBtn = document.querySelector(".clear-btn");
 const backspaceBtn = document.querySelector(".backspace-btn");
 onOffBtn.addEventListener("click", toggleCalculator);
-// if (on) {
-//   decimalBtn.disabled = true;
-//   equalBtn.disabled = true;
-//   clearBtn.disabled = true;
-//   backspaceBtn.disabled = true;
-//   numberButtons.forEach((btn) => (btn.disabled = true));
-//   operatorButtons.forEach((btn) => (btn.disabled = true));
-//   operation.textContent = "";
-//   result.textContent = "";
-//   screen.style.backgroundColor = "gray";
-//   firstNumber = "";
-//   secondNumber = "";
-//   operator = null;
-//   equalPressed = false;
-//   on = false;
-// } else {
-//   decimalBtn.disabled = false;
-//   equalBtn.disabled = false;
-//   clearBtn.disabled = false;
-//   backspaceBtn.disabled = false;
-//   numberButtons.forEach((btn) => (btn.disabled = false));
-//   operatorButtons.forEach((btn) => (btn.disabled = false));
-//   screen.style.backgroundColor = "white";
-//   on = true;
-// }
-// });
+clearBtn.addEventListener("click", resetState);
 decimalBtn.addEventListener("click", (e) => {
   if (operator === null) {
     if (equalPressed) {
@@ -138,7 +116,6 @@ numberButtons.forEach((ele) =>
       if (equalPressed) {
         firstNumber = "";
         operation.textContent = "";
-
         equalPressed = false;
       }
       firstNumber += e.target.textContent;
