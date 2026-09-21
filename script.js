@@ -28,16 +28,64 @@ function operate(a, b, op) {
       return multiply(a, b);
   }
 }
+function toggleCalculator() {
+  on = !on;
+  decimalBtn.disabled = !on;
+  equalBtn.disabled = !on;
+  clearBtn.disabled = !on;
+  backspaceBtn.disabled = !on;
+  numberButtons.forEach((btn) => (btn.disabled = !on));
+  operatorButtons.forEach((btn) => (btn.disabled = !on));
+  screen.style.backgroundColor = on ? "white" : "gray";
+  operation.textContent = "";
+  result.textContent = "";
+  firstNumber = "";
+  secondNumber = "";
+  operator = null;
+  equalPressed = false;
+}
 let firstNumber = "";
 let secondNumber = "";
 let operator = null;
 let equalPressed = false;
+let on = true;
 const numberButtons = document.querySelectorAll(".number-btn");
 const operatorButtons = document.querySelectorAll(".operator-btn");
+const screen = document.querySelector(".screen");
 const operation = document.querySelector(".operation");
 const equalBtn = document.querySelector(".equal-btn");
 const result = document.querySelector(".result");
 const decimalBtn = document.querySelector(".decimal-btn");
+const onOffBtn = document.querySelector(".on-off-btn");
+const clearBtn = document.querySelector(".clear-btn");
+const backspaceBtn = document.querySelector(".backspace-btn");
+onOffBtn.addEventListener("click", toggleCalculator);
+// if (on) {
+//   decimalBtn.disabled = true;
+//   equalBtn.disabled = true;
+//   clearBtn.disabled = true;
+//   backspaceBtn.disabled = true;
+//   numberButtons.forEach((btn) => (btn.disabled = true));
+//   operatorButtons.forEach((btn) => (btn.disabled = true));
+//   operation.textContent = "";
+//   result.textContent = "";
+//   screen.style.backgroundColor = "gray";
+//   firstNumber = "";
+//   secondNumber = "";
+//   operator = null;
+//   equalPressed = false;
+//   on = false;
+// } else {
+//   decimalBtn.disabled = false;
+//   equalBtn.disabled = false;
+//   clearBtn.disabled = false;
+//   backspaceBtn.disabled = false;
+//   numberButtons.forEach((btn) => (btn.disabled = false));
+//   operatorButtons.forEach((btn) => (btn.disabled = false));
+//   screen.style.backgroundColor = "white";
+//   on = true;
+// }
+// });
 decimalBtn.addEventListener("click", (e) => {
   if (operator === null) {
     if (equalPressed) {
