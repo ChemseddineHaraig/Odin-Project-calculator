@@ -34,6 +34,7 @@ function resetState() {
   firstNumber = "";
   secondNumber = "";
   operator = null;
+  previousResult = "";
   equalPressed = false;
 }
 function toggleCalculator() {
@@ -52,6 +53,10 @@ let secondNumber = "";
 let operator = null;
 let equalPressed = false;
 let on = true;
+let previousResult = "";
+let previousFirstNumber = "";
+let previousSecondNumber = "";
+let previousOperator = null;
 const numberButtons = document.querySelectorAll(".number-btn");
 const operatorButtons = document.querySelectorAll(".operator-btn");
 const screen = document.querySelector(".screen");
@@ -64,6 +69,29 @@ const clearBtn = document.querySelector(".clear-btn");
 const backspaceBtn = document.querySelector(".backspace-btn");
 onOffBtn.addEventListener("click", toggleCalculator);
 clearBtn.addEventListener("click", resetState);
+backspaceBtn.addEventListener("click", (e) => {
+  if (!equalPressed) {
+    if (operator !== null && secondNumber !== "") {
+      secondNumber = secondNumber.slice(0, -1);
+    } else {
+      if (operator !== null) {
+        operator = null;
+        if (previousResult !== "") {
+          operation.textContent = previousResult;
+          previousResult = "";
+          firstNumber = previousFirstNumber;
+          operator = previousOperator;
+          secondNumber = previousSecondNumber;
+        }
+      } else {
+        if (firstNumber !== "") {
+          firstNumber = firstNumber.slice(0, -1);
+        }
+      }
+    }
+    operation.textContent = operation.textContent.slice(0, -1);
+  }
+});
 decimalBtn.addEventListener("click", (e) => {
   if (operator === null) {
     if (equalPressed) {
@@ -109,6 +137,7 @@ equalBtn.addEventListener("click", (e) => {
     operator = null;
     equalPressed = true;
   }
+  previousResult = "";
 });
 numberButtons.forEach((ele) =>
   ele.addEventListener("click", (e) => {
@@ -179,12 +208,13 @@ operatorButtons.forEach((ele) =>
     // }
     // *** claude Idea which is better
     if (operator !== null && secondNumber !== "") {
-      firstNumber = operate(
-        Number(firstNumber),
-        Number(secondNumber),
-        operator,
+      previousResult = operation.textContent + e.target.textContent;
+      previousFirstNumber = firstNumber;
+      previousOperator = operator;
+      previousSecondNumber = secondNumber;
+      firstNumber = String(
+        operate(Number(firstNumber), Number(secondNumber), operator),
       );
-
       operation.textContent = firstNumber + e.target.textContent;
       result.textContent = firstNumber;
       secondNumber = "";
@@ -193,6 +223,7 @@ operatorButtons.forEach((ele) =>
         operator === null
           ? firstNumber + e.target.textContent
           : operation.textContent.slice(0, -1) + e.target.textContent;
+      equalPressed = false;
     }
     if (firstNumber === "") firstNumber = "0";
     operator = e.target.textContent;
