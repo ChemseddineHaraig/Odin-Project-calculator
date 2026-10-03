@@ -8,7 +8,9 @@ function multiply(a, b) {
   return a * b;
 }
 function divide(a, b) {
-  return a / b;
+  return a / b === Infinity || a / b === -Infinity
+    ? `${a} Can't divide by 0`
+    : a / b;
 }
 function percentage(a) {
   return a / 100;
@@ -129,13 +131,17 @@ equalBtn.addEventListener("click", (e) => {
       Number(secondNumber),
       operator,
     );
+    if (isNaN(calculatedResult)) {
+      resetState();
+    } else {
+      operation.textContent =
+        firstNumber + operator + secondNumber + "=" + calculatedResult;
+      firstNumber = String(calculatedResult);
+      secondNumber = "";
+      operator = null;
+      equalPressed = true;
+    }
     result.textContent = calculatedResult;
-    operation.textContent =
-      firstNumber + operator + secondNumber + "=" + calculatedResult;
-    firstNumber = String(calculatedResult);
-    secondNumber = "";
-    operator = null;
-    equalPressed = true;
   }
   previousResult = "";
 });
@@ -207,6 +213,7 @@ operatorButtons.forEach((ele) =>
     //   }
     // }
     // *** claude Idea which is better
+    if (firstNumber === "") firstNumber = "0";
     if (operator !== null && secondNumber !== "") {
       previousResult = operation.textContent + e.target.textContent;
       previousFirstNumber = firstNumber;
@@ -215,8 +222,10 @@ operatorButtons.forEach((ele) =>
       firstNumber = String(
         operate(Number(firstNumber), Number(secondNumber), operator),
       );
-      operation.textContent = firstNumber + e.target.textContent;
+
       result.textContent = firstNumber;
+      if (isNaN(firstNumber)) firstNumber = "0";
+      operation.textContent = firstNumber + e.target.textContent;
       secondNumber = "";
     } else {
       operation.textContent =
@@ -225,7 +234,7 @@ operatorButtons.forEach((ele) =>
           : operation.textContent.slice(0, -1) + e.target.textContent;
       equalPressed = false;
     }
-    if (firstNumber === "") firstNumber = "0";
+
     operator = e.target.textContent;
   }),
 );
