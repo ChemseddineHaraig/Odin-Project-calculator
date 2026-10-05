@@ -69,6 +69,26 @@ const decimalBtn = document.querySelector(".decimal-btn");
 const onOffBtn = document.querySelector(".on-off-btn");
 const clearBtn = document.querySelector(".clear-btn");
 const backspaceBtn = document.querySelector(".backspace-btn");
+const percentageBtn = document.querySelector(".percentage-btn");
+percentageBtn.addEventListener("click", (e) => {
+  if (operator === null) {
+    if (firstNumber === "") firstNumber = "0";
+    firstNumber = String(percentage(Number(firstNumber)));
+    operation.textContent = firstNumber;
+    result.textContent = firstNumber;
+    if (equalPressed) equalPressed = false;
+  } else {
+    if (secondNumber === "") {
+      firstNumber = String(percentage(Number(firstNumber)));
+      operation.textContent = firstNumber;
+      result.textContent = firstNumber;
+      operator = null;
+    } else {
+      secondNumber = String(percentage(Number(secondNumber)));
+      operation.textContent = firstNumber + operator + secondNumber;
+    }
+  }
+});
 onOffBtn.addEventListener("click", toggleCalculator);
 clearBtn.addEventListener("click", resetState);
 backspaceBtn.addEventListener("click", (e) => {
