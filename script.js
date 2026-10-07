@@ -183,56 +183,6 @@ numberButtons.forEach((ele) =>
 );
 operatorButtons.forEach((ele) =>
   ele.addEventListener("click", (e) => {
-    // let lastStr = operation.textContent[operation.textContent.length - 1];
-    // let lastStrIsOp =
-    //   lastStr === "/" ||
-    //   lastStr === "*" ||
-    //   lastStr === "+" ||
-    //   lastStr === "-" ||
-    //   lastStr === "%";
-    // let includeOp =
-    //   operation.textContent.includes("+") ||
-    //   operation.textContent.includes("-") ||
-    //   operation.textContent.includes("*") ||
-    //   operation.textContent.includes("/") ||
-    //   operation.textContent.includes("%");
-    // // Grap and test the last character if it's an operator or a number
-    // if (lastStrIsOp) {
-    //   // firstNumber = Number(
-    //   //   operation.textContent.slice(0, operation.textContent.length - 1),
-    //   // );
-    //   operation.textContent =
-    //     operation.textContent.slice(0, operation.textContent.length - 1) +
-    //     e.target.textContent;
-    //   operator = e.target.textContent;
-    // } else {
-    //   // Test if the operation already have an operator so we calculate it before add a new operator
-    //   if (includeOp) {
-    //     console.log(operation.textContent);
-    //     // if (operation.textContent.startsWith("-")) {
-    //     //   secondNumber = Number(
-    //     //     operation.textContent.split(operator)[
-    //     //       operation.textContent.split(operator).length - 1
-    //     //     ],
-    //     //   );
-    //     // } else {
-    //     //   secondNumber = Number(operation.textContent.split(operator)[1]);
-    //     // }
-    //     // secondNumber = Number(
-    //     //   operation.textContent.split(operator)[
-    //     //     operation.textContent.split(operator).length - 1
-    //     //   ],
-    //     // );
-    //     firstNumber = operate(firstNumber, secondNumber, operator);
-    //     operator = e.target.textContent;
-    //     operation.textContent = firstNumber + e.target.textContent;
-    //   } else {
-    //     operator = e.target.textContent;
-    //     firstNumber = Number(operation.textContent);
-    //     operation.textContent += e.target.textContent;
-    //   }
-    // }
-    // *** claude Idea which is better
     if (firstNumber === "") firstNumber = "0";
     if (operator !== null && secondNumber !== "") {
       previousResult = operation.textContent + e.target.textContent;
