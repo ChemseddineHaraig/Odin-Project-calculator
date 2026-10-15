@@ -215,7 +215,6 @@ operatorButtons.forEach((ele) =>
   }),
 );
 document.addEventListener("keydown", (e) => {
-  console.log(e.key, e.code);
   numberButtons.forEach((ele) => {
     if (ele.textContent === e.key) ele.click();
   });
