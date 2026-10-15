@@ -70,6 +70,12 @@ const onOffBtn = document.querySelector(".on-off-btn");
 const clearBtn = document.querySelector(".clear-btn");
 const backspaceBtn = document.querySelector(".backspace-btn");
 const percentageBtn = document.querySelector(".percentage-btn");
+const allBtns = document.querySelectorAll("button");
+allBtns.forEach((ele) =>
+  ele.addEventListener("click", (e) => {
+    e.currentTarget.blur();
+  }),
+);
 percentageBtn.addEventListener("click", (e) => {
   if (operator === null) {
     if (firstNumber === "") firstNumber = "0";
@@ -208,3 +214,16 @@ operatorButtons.forEach((ele) =>
     operator = e.target.textContent;
   }),
 );
+document.addEventListener("keydown", (e) => {
+  numberButtons.forEach((ele) => {
+    if (ele.textContent === e.key) ele.click();
+  });
+  operatorButtons.forEach((ele) => {
+    if (ele.textContent === e.key) ele.click();
+  });
+  if (e.key === "Backspace") backspaceBtn.click();
+  if (e.key === "=" || e.key === "Enter") equalBtn.click();
+  if (e.key === ".") decimalBtn.click();
+  if (e.key === "%") percentageBtn.click();
+  if (e.key === "Escape") clearBtn.click();
+});
